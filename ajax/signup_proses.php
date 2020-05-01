@@ -17,7 +17,7 @@ if (isset($_POST['submit_signup'])) {
     }
   } else {
     $hash_password = password_hash($confirmpassword, PASSWORD_DEFAULT, ['cost' => 12]);
-    $sql = "INSERT INTO tbl_customer VALUES(null, null, '$email',null, null, '$namedisplay', '$hash_password', null, null, null)";
+    $sql = "INSERT INTO tbl_customer VALUES(null,null,'$email',null,null,'$namedisplay','$hash_password',null,null,null)";
     $conn -> query($sql);
     // $get_current = $conn -> query("SELECT * FROM tbl_customer WHERE username_customer = '$namedisplay'");
     // if ($get_current -> num_rows > 0) {

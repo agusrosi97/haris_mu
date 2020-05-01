@@ -6566,18 +6566,19 @@ label {
   margin-bottom: 0 !important;
   font-size: 14px !important;
   font-weight: 400;
-  top: 12px;
+  top: 14.5px;
 }
 
 .form-floating-label .form-control:focus+.placeholder,
 .form-floating-label .form-control:valid+.placeholder,
 .form-floating-label .form-control.filled+.placeholder {
   font-size: 85% !important;
-  transform: translate3d(0, -10px, 0);
-  top: 0;
-  opacity: 1;
-  padding: .375rem 0 .75rem;
-  font-weight: 600;
+    transform: translate3d(8.5px, 2px, 0);
+    top: 0;
+    background: #ffffff;
+    opacity: 1;
+    padding: 0rem 0.2rem 0rem;
+    font-weight: 600;
 }
 
 .form-floating-label .form-control.filled+.placeholder {
@@ -23160,7 +23161,7 @@ label.error {
   position: absolute;
   color: #F25961 !important;
   font-size: 80% !important;
-  margin-top: .1rem;
+  margin-top: .4rem;
 }
 
 .prf~label.error,

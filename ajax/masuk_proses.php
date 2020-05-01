@@ -1,7 +1,7 @@
 <?php
 session_start();
-require '../koneksi/function.php';
 if (isset($_POST['submit_login'])) {
+  require '../koneksi/function.php';
   $usermail = htmlspecialchars($_POST['username']);
   $password = htmlspecialchars($_POST['password']);
   $result = $conn -> query("SELECT * FROM tbl_customer WHERE username_customer = '$usermail' OR email_customer = '$usermail'");

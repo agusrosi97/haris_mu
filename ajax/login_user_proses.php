@@ -1,17 +1,17 @@
 <?php
 session_start();
-require '../koneksi/function.php';
 if (isset($_POST['submit_login'])) {
+  require '../koneksi/function.php';
   $usermail = htmlspecialchars($_POST['username']);
   $password = htmlspecialchars($_POST['password']);
-  $result = $conn -> query("SELECT * FROM tbl_customer WHERE username_customer = '$usermail' OR email_customer = '$usermail'");
+  $result = $conn -> query("SELECT * FROM tbl_user WHERE username_user = '$usermail' OR email_user = '$usermail'");
   $row = $result -> fetch_assoc();
   if ($result -> num_rows === 1) {
-    $id = $row['id_customer'];
-    $username_ready = $row['username_customer'];
-    $email_ready = $row['email_customer'];
+    $id = $row['id_user'];
+    $username_ready = $row['username_user'];
+    $email_ready = $row['email_user'];
     if (($usermail === $username_ready) OR (strtolower($usermail) == $email_ready)) {
-      if (password_verify($password, $row['password_customer'])) {
+      if (password_verify($password, $row['password_user'])) {
         // setcookie("loggedin", $id, time() + 60 * 60 * 24 * 90, '/', '', 0, 0);
         $_SESSION['loggedin'] = $id;
         echo "halo";

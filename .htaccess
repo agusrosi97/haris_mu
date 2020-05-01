@@ -1,8 +1,0 @@
-RewriteEngine on
-
-Options -Indexes
-
-RewriteCond %{THE_REQUEST} ^(GET|HEAD)\s([^.]+)\.php [NC]
-RewriteRule ^ %2 [R,NC]
-RewriteCond %{REQUEST_FILENAME}.php -f
-RewriteRule ^ %{REQUEST_URI}.php
