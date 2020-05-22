@@ -1,17 +1,20 @@
 <?php
 session_start();
 // if (empty($_SESSION['loggedin'])) header('location: login.php');
-if (!empty($_SESSION['loggedin_customer'])) : 
+if (!empty($_SESSION['loggedin_customer'])) :
   $id_customer = $_SESSION['loggedin_customer'];
 endif;
   // $_SESSION['loggedin'] = '';
+require 'koneksi/function.php';
+$data_barang = $conn -> query("SELECT * FROM tbl_barang WHERE keterangan_barang = 'ada'");
+include 'components/query_notif.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<title>Atlantis Bootstrap 4 Admin Dashboard</title>
+	<title>Sindycart</title>
 	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
 	<link rel="icon" href="assets/img/icon.ico" type="image/x-icon" />
 
@@ -63,16 +66,16 @@ endif;
 
 						<div class="container-fluid p-0">
 							<div class="collapse" id="search-nav">
-								<form class="navbar-left navbar-form nav-search ml-md-3">
+								<div class="navbar-left navbar-form nav-search ml-md-3">
 									<div class="input-group">
-										<div class="input-group-prepend">
-											<button type="submit" class="btn btn-search pr-1">
+										<div class="input-group-prepend" onclick="$('#box-search').focus()">
+											<button type="button" class="btn btn-search pr-1">
 												<i class="fa fa-search search-icon"></i>
 											</button>
 										</div>
-										<input type="text" placeholder="Pencarian ..." class="form-control">
+										<input id="box-search" type="text" placeholder="Cari jenis barang, jenis bahan ..." class="form-control">
 									</div>
-								</form>
+								</div>
 							</div>
 							<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
 								<li class="nav-item toggle-nav-search hidden-caret">
@@ -80,6 +83,16 @@ endif;
 										<i class="fa fa-search"></i>
 									</a>
 								</li>
+                <?php if(!empty($_SESSION['loggedin_customer'])) :?>
+                <li class="nav-item" <?=$count > 0 ? "title='Ada ".$count." pesanan belum dilunasi!'" : "title='Pesanan'" ?>>
+                  <a href="pesanan.php" class="nav-link">
+                    <i class="fas fa-shopping-cart"></i>
+                    <?php if ($count > 0) {
+                      echo "<span class='notification bg-danger'>".$count."</span>";
+                    } else {} ?>
+                  </a>
+                </li>
+                <?php endif; ?>
 								<li class="nav-item dropdown hidden-caret">
                   <?php if(empty($_SESSION['loggedin_customer'])) : ?>
                     <a href="masuk.php" class="text-white font-weight-bold">Masuk / Daftar</a>
@@ -234,313 +247,31 @@ endif;
                 <div class="item"><img src="assets/img/CC WEB PHOTO  (34 of 164).jpg" alt="" height="200px" class="rounded"></div>
               </div>
             </div>
-  					<div class="col-12 d-none d-md-block">
-              <div class="text-center mb-3 card-title">Contoh Barang</div>
-              <div class="d-flex justify-content-center flex-wrap">
-                <div class="col-4 col-sm-4 col-lg-2">
-                  <div class="card" style="height: 130px">
-                    <div class="card-body p-3 text-center" style="background-image: url(assets/img/tshirt.png);background-size: contain; background-repeat: no-repeat; background-position: center;">
-                    </div>
-                  </div>
-                </div>
-                <div class="col-4 col-sm-4 col-lg-2">
-                  <div class="card" style="height: 130px">
-                    <div class="card-body p-3 text-center" style="background-image: url(assets/img/celana_pendek_08.png);background-size: contain; background-repeat: no-repeat; background-position: center;">
-                    </div>
-                  </div>
-                </div>
-                <div class="col-4 col-sm-4 col-lg-2">
-                  <div class="card" style="height: 130px">
-                    <div class="card-body p-3 text-center" style="background-image: url(assets/img/jaket.png);background-size: contain; background-repeat: no-repeat; background-position: center;">
-                    </div>
-                  </div>
-                </div>
-                <div class="col-4 col-sm-4 col-lg-2">
-                  <div class="card" style="height: 130px">
-                    <div class="card-body p-3 text-center" style="background-image: url(assets/img/jean.png);background-size: contain; background-repeat: no-repeat; background-position: center;">
-                    </div>
-                  </div>
-                </div>
-              </div>     
+  					<div class="col-12">
+              <div class="text-center mb-3"><h1 class="text-uppercase">Contoh Barang</h1></div>
             </div>
-					</div>
-					<!-- <div class="row">
-						<div class="col-md-4">
-							<div class="card">
-								<div class="card-header">
-									<div class="card-title">Top Products</div>
-								</div>
-								<div class="card-body pb-0">
-									<div class="d-flex">
-										<div class="avatar">
-											<img src="assets/img/logoproduct.svg" alt="..." class="avatar-img rounded-circle">
-										</div>
-										<div class="flex-1 pt-1 ml-2">
-											<h6 class="fw-bold mb-1">CSS</h6>
-											<small class="text-muted">Cascading Style Sheets</small>
-										</div>
-										<div class="d-flex ml-auto align-items-center">
-											<h3 class="text-info fw-bold">+$17</h3>
-										</div>
-									</div>
-									<div class="separator-dashed"></div>
-									<div class="d-flex">
-										<div class="avatar">
-											<img src="assets/img/logoproduct.svg" alt="..." class="avatar-img rounded-circle">
-										</div>
-										<div class="flex-1 pt-1 ml-2">
-											<h6 class="fw-bold mb-1">J.CO Donuts</h6>
-											<small class="text-muted">The Best Donuts</small>
-										</div>
-										<div class="d-flex ml-auto align-items-center">
-											<h3 class="text-info fw-bold">+$300</h3>
-										</div>
-									</div>
-									<div class="separator-dashed"></div>
-									<div class="d-flex">
-										<div class="avatar">
-											<img src="assets/img/logoproduct3.svg" alt="..." class="avatar-img rounded-circle">
-										</div>
-										<div class="flex-1 pt-1 ml-2">
-											<h6 class="fw-bold mb-1">Ready Pro</h6>
-											<small class="text-muted">Bootstrap 4 Admin Dashboard</small>
-										</div>
-										<div class="d-flex ml-auto align-items-center">
-											<h3 class="text-info fw-bold">+$350</h3>
-										</div>
-									</div>
-									<div class="separator-dashed"></div>
-									<div class="pull-in">
-										<canvas id="topProductsChart"></canvas>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="card">
-								<div class="card-body">
-									<div class="card-title fw-mediumbold">Suggested People</div>
-									<div class="card-list">
-										<div class="item-list">
-											<div class="avatar">
-												<img src="assets/img/jm_denis.jpg" alt="..." class="avatar-img rounded-circle">
-											</div>
-											<div class="info-user ml-3">
-												<div class="username">Jimmy Denis</div>
-												<div class="status">Graphic Designer</div>
-											</div>
-											<button class="btn btn-icon btn-primary btn-round btn-xs">
-												<i class="fa fa-plus"></i>
-											</button>
-										</div>
-										<div class="item-list">
-											<div class="avatar">
-												<img src="assets/img/chadengle.jpg" alt="..." class="avatar-img rounded-circle">
-											</div>
-											<div class="info-user ml-3">
-												<div class="username">Chad</div>
-												<div class="status">CEO Zeleaf</div>
-											</div>
-											<button class="btn btn-icon btn-primary btn-round btn-xs">
-												<i class="fa fa-plus"></i>
-											</button>
-										</div>
-										<div class="item-list">
-											<div class="avatar">
-												<img src="assets/img/talha.jpg" alt="..." class="avatar-img rounded-circle">
-											</div>
-											<div class="info-user ml-3">
-												<div class="username">Talha</div>
-												<div class="status">Front End Designer</div>
-											</div>
-											<button class="btn btn-icon btn-primary btn-round btn-xs">
-												<i class="fa fa-plus"></i>
-											</button>
-										</div>
-										<div class="item-list">
-											<div class="avatar">
-												<img src="assets/img/mlane.jpg" alt="..." class="avatar-img rounded-circle">
-											</div>
-											<div class="info-user ml-3">
-												<div class="username">John Doe</div>
-												<div class="status">Back End Developer</div>
-											</div>
-											<button class="btn btn-icon btn-primary btn-round btn-xs">
-												<i class="fa fa-plus"></i>
-											</button>
-										</div>
-										<div class="item-list">
-											<div class="avatar">
-												<img src="assets/img/talha.jpg" alt="..." class="avatar-img rounded-circle">
-											</div>
-											<div class="info-user ml-3">
-												<div class="username">Talha</div>
-												<div class="status">Front End Designer</div>
-											</div>
-											<button class="btn btn-icon btn-primary btn-round btn-xs">
-												<i class="fa fa-plus"></i>
-											</button>
-										</div>
-										<div class="item-list">
-											<div class="avatar">
-												<img src="assets/img/jm_denis.jpg" alt="..." class="avatar-img rounded-circle">
-											</div>
-											<div class="info-user ml-3">
-												<div class="username">Jimmy Denis</div>
-												<div class="status">Graphic Designer</div>
-											</div>
-											<button class="btn btn-icon btn-primary btn-round btn-xs">
-												<i class="fa fa-plus"></i>
-											</button>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="card card-primary bg-primary-gradient">
-								<div class="card-body">
-									<h4 class="mt-3 b-b1 pb-2 mb-4 fw-bold">Active user right now</h4>
-									<h1 class="mb-4 fw-bold">17</h1>
-									<h4 class="mt-3 b-b1 pb-2 mb-5 fw-bold">Page view per minutes</h4>
-									<div id="activeUsersChart"></div>
-									<h4 class="mt-5 pb-3 mb-0 fw-bold">Top active pages</h4>
-									<ul class="list-unstyled">
-										<li class="d-flex justify-content-between pb-1 pt-1"><small>/product/readypro/index.html</small> <span>7</span></li>
-										<li class="d-flex justify-content-between pb-1 pt-1"><small>/product/atlantis/demo.html</small> <span>10</span></li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-6">
-							<div class="card">
-								<div class="card-header">
-									<div class="card-title">Feed Activity</div>
-								</div>
-								<div class="card-body">
-									<ol class="activity-feed">
-										<li class="feed-item feed-item-secondary">
-											<time class="date" datetime="9-25">Sep 25</time>
-											<span class="text">Responded to need <a href="#">"Volunteer opportunity"</a></span>
-										</li>
-										<li class="feed-item feed-item-success">
-											<time class="date" datetime="9-24">Sep 24</time>
-											<span class="text">Added an interest <a href="#">"Volunteer Activities"</a></span>
-										</li>
-										<li class="feed-item feed-item-info">
-											<time class="date" datetime="9-23">Sep 23</time>
-											<span class="text">Joined the group <a href="single-group.php">"Boardsmanship Forum"</a></span>
-										</li>
-										<li class="feed-item feed-item-warning">
-											<time class="date" datetime="9-21">Sep 21</time>
-											<span class="text">Responded to need <a href="#">"In-Kind Opportunity"</a></span>
-										</li>
-										<li class="feed-item feed-item-danger">
-											<time class="date" datetime="9-18">Sep 18</time>
-											<span class="text">Created need <a href="#">"Volunteer Opportunity"</a></span>
-										</li>
-										<li class="feed-item">
-											<time class="date" datetime="9-17">Sep 17</time>
-											<span class="text">Attending the event <a href="single-event.php">"Some New Event"</a></span>
-										</li>
-									</ol>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="card">
-								<div class="card-header">
-									<div class="card-head-row">
-										<div class="card-title">Support Tickets</div>
-										<div class="card-tools">
-											<ul class="nav nav-pills nav-secondary nav-pills-no-bd nav-sm" id="pills-tab" role="tablist">
-												<li class="nav-item">
-													<a class="nav-link" id="pills-today" data-toggle="pill" href="#pills-today" role="tab" aria-selected="true">Today</a>
-												</li>
-												<li class="nav-item">
-													<a class="nav-link active" id="pills-week" data-toggle="pill" href="#pills-week" role="tab" aria-selected="false">Week</a>
-												</li>
-												<li class="nav-item">
-													<a class="nav-link" id="pills-month" data-toggle="pill" href="#pills-month" role="tab" aria-selected="false">Month</a>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</div>
-								<div class="card-body">
-									<div class="d-flex">
-										<div class="avatar avatar-online">
-											<span class="avatar-title rounded-circle border border-white bg-info">J</span>
-										</div>
-										<div class="flex-1 ml-3 pt-1">
-											<h6 class="text-uppercase fw-bold mb-1">Joko Subianto <span class="text-warning pl-3">pending</span></h6>
-											<span class="text-muted">I am facing some trouble with my viewport. When i start my</span>
-										</div>
-										<div class="float-right pt-1">
-											<small class="text-muted">8:40 PM</small>
-										</div>
-									</div>
-									<div class="separator-dashed"></div>
-									<div class="d-flex">
-										<div class="avatar avatar-offline">
-											<span class="avatar-title rounded-circle border border-white bg-secondary">P</span>
-										</div>
-										<div class="flex-1 ml-3 pt-1">
-											<h6 class="text-uppercase fw-bold mb-1">Prabowo Widodo <span class="text-success pl-3">open</span></h6>
-											<span class="text-muted">I have some query regarding the license issue.</span>
-										</div>
-										<div class="float-right pt-1">
-											<small class="text-muted">1 Day Ago</small>
-										</div>
-									</div>
-									<div class="separator-dashed"></div>
-									<div class="d-flex">
-										<div class="avatar avatar-away">
-											<span class="avatar-title rounded-circle border border-white bg-danger">L</span>
-										</div>
-										<div class="flex-1 ml-3 pt-1">
-											<h6 class="text-uppercase fw-bold mb-1">Lee Chong Wei <span class="text-muted pl-3">closed</span></h6>
-											<span class="text-muted">Is there any update plan for RTL version near future?</span>
-										</div>
-										<div class="float-right pt-1">
-											<small class="text-muted">2 Days Ago</small>
-										</div>
-									</div>
-									<div class="separator-dashed"></div>
-									<div class="d-flex">
-										<div class="avatar avatar-offline">
-											<span class="avatar-title rounded-circle border border-white bg-secondary">P</span>
-										</div>
-										<div class="flex-1 ml-3 pt-1">
-											<h6 class="text-uppercase fw-bold mb-1">Peter Parker <span class="text-success pl-3">open</span></h6>
-											<span class="text-muted">I have some query regarding the license issue.</span>
-										</div>
-										<div class="float-right pt-1">
-											<small class="text-muted">2 Day Ago</small>
-										</div>
-									</div>
-									<div class="separator-dashed"></div>
-									<div class="d-flex">
-										<div class="avatar avatar-away">
-											<span class="avatar-title rounded-circle border border-white bg-danger">L</span>
-										</div>
-										<div class="flex-1 ml-3 pt-1">
-											<h6 class="text-uppercase fw-bold mb-1">Logan Paul <span class="text-muted pl-3">closed</span></h6>
-											<span class="text-muted">Is there any update plan for RTL version near future?</span>
-										</div>
-										<div class="float-right pt-1">
-											<small class="text-muted">2 Days Ago</small>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div> -->
+          </div>
+          <div class="row" id="wrapper-hasil-cari-barang"></div>
+          <div class="row" id="wrapper-data-barang">
+            <?php if ($data_barang -> num_rows <= 0) {?>
+              <div class="col text-center"><h1>Mohon maaf barang saat ini sudah habis.</h1></div>
+            <?php } else { 
+              foreach ($data_barang as $row_barang) : ?>
+                <div class="col-4 col-sm-2">
+                  <label class="imagecheck mb-4 position-relative" data-pilihbarang="<?=$row_barang['id_barang'] ?>">
+                    <!-- <input name="imagecheck" type="radio" class="imagecheck-input"> -->
+                    <figure class="imagecheck-figure">
+                      <img src="assets/img/<?=$row_barang['foto_barang'] ?>" alt="cnth-barang" class="imagecheck-image img-fluid">
+                    </figure>
+                    <div style="position: absolute; bottom: 0; width: 100%; background: rgba(255,255,255,.8); backdrop-filter: blur(20px);"><h4 class="m-0 p-2 text-dark"><?=ucfirst($row_barang['bahan_barang']) ?></h4></div>
+                  </label>
+                </div>
+              <?php endforeach; 
+            } ?>
+          </div>
 				</div>
 			</div>
-		</div>
+    </div>
     <?php include 'footer/footer-customer.php'; ?>
 	</div>
 	<!--   Core JS Files   -->
@@ -620,7 +351,8 @@ endif;
 	<script src="assets/js/demo.js"></script>
 
   <script type="text/javascript">
-    $(document).ready(function (argument) {
+    $(document).ready(function () {
+      // load_data();
       $('.owl-carousel').owlCarousel({
         margin:10,
         loop:true,
@@ -631,8 +363,6 @@ endif;
         responsiveClass:true,
         responsive:{
           0:{
-            animateOut: 'slideOutDown',
-            animateIn: 'flipInX',
             items:1,
             margin:30,
             stagePadding:30,
@@ -654,7 +384,41 @@ endif;
             autoWidth: true,
           }
         }
-      })
+      });
+      $('.imagecheck').click(function () {
+        let data_pilihan = $(this).data('pilihbarang');
+        $.ajax({
+          url: 'ajax/select_barang.php',
+          method: 'POST',
+          data: {databarang:data_pilihan},
+          success: function () {
+            window.location.href = 'pilihan_barang.php';
+          },
+          error: function () {
+            alert('Terjadi kesalahan, harap coba bebrapa saat lagi!');
+          }
+        })
+      });
+      $('#box-search').keyup(function () {
+        var search = $(this).val();
+        if($(this).val() != ""){
+          load_data(search);
+          $('#wrapper-data-barang').fadeOut();
+        } else {
+          load_data();
+          $('#wrapper-data-barang').fadeIn();
+        }
+      });
+      function load_data(query) {
+        $.ajax({
+          url:"ajax/cus_cari_data_barang.php",
+          method:"POST",
+          data:{cari_data_barang:query},
+          success:function(data) {
+            $('#wrapper-hasil-cari-barang').html(data).fadeIn();
+          }
+        });
+      };
     });
   </script>
 </body>

@@ -153,17 +153,17 @@ $cek_owner = $conn->query("SELECT * FROM tbl_user WHERE hak_akses_user = 'Owner'
               </a>
             </li>
             <li class="nav-item">
-              <a href="#tables">
+              <a href="data_barang.php">
                 <i class="fas fa-box"></i>
                 <p>Data Barang</p>
               </a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a href="#maps">
                 <i class="fas fa-tshirt"></i>
                 <p>Contoh Barang</p>
               </a>
-            </li>
+            </li> -->
           </ul>
         </div>
       </div>
@@ -185,7 +185,7 @@ $cek_owner = $conn->query("SELECT * FROM tbl_user WHERE hak_akses_user = 'Owner'
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header">
-                  <button class="btn btn-primary btn-sm shadow-sm" data-toggle="modal" data-target="#mdl-data-user"><i class="fas fa-plus"></i> Data</button>
+                  <button class="btn btn-primary btn-sm shadow-sm" data-toggle="modal" data-target="#mdl-data-user" title="Tambah data"><i class="fas fa-plus"></i> Data</button>
                 </div>
                 <div class="card-body" id="load-data-user">
                   <!-- <div class="table-responsive"> -->
@@ -198,11 +198,11 @@ $cek_owner = $conn->query("SELECT * FROM tbl_user WHERE hak_akses_user = 'Owner'
                           <th>Username</th>
                           <th>Email</th>
                           <th>Telp</th>
+                          <th>Status</th>
                           <th>Tgl Lahir</th>
                           <th>Kelamin</th>
                           <th>Alamat</th>
                           <th>Hak Akses</th>
-                          <th>Status</th>
                         </tr>
                       </thead>
                       <tfoot>
@@ -213,11 +213,11 @@ $cek_owner = $conn->query("SELECT * FROM tbl_user WHERE hak_akses_user = 'Owner'
                           <th>Username</th>
                           <th>Email</th>
                           <th>Telp</th>
+                          <th>Status</th>
                           <th>Tgl Lahir</th>
                           <th>Kelamin</th>
                           <th>Alamat</th>
                           <th>Hak Akses</th>
-                          <th>Status</th>
                         </tr>
                       </tfoot>
                       <tbody>
@@ -234,11 +234,11 @@ $cek_owner = $conn->query("SELECT * FROM tbl_user WHERE hak_akses_user = 'Owner'
                             <td><?=$row_tabel_user['username_user'] == '' ? "-" : $row_tabel_user['username_user'] ?></td>
                             <td><?=$row_tabel_user['email_user'] == '' ? "-" : $row_tabel_user['email_user'] ?></td>
                             <td><?=$row_tabel_user['notelp_user'] == '' ? "-" : $row_tabel_user['notelp_user']?></td>
+                            <td><?=$row_tabel_user['status_user'] == 'Aktif' ? $row_tabel_user['status_user'] : '<span class="badge badge-danger">' . $row_tabel_user['status_user'] . '</span>'  ?></td>
                             <td class="text-nowrap"><?=date_format(new DateTime($row_tabel_user['dob_user']), "d-m-Y") ?></td>
                             <td><?php if ($row_tabel_user['jk_user'] == "L") : ?>Laki-laki <?php elseif ($row_tabel_user['jk_user'] == "P") : ?>Perempuan <?php else : ?>-<?php endif; ?></td>
                             <td><?=$row_tabel_user['alamat_user'] == '' ? "-" : $row_tabel_user['alamat_user'] ?></td>
                             <td><?=$row_tabel_user['hak_akses_user'] ?></td>
-                            <td><?=$row_tabel_user['status_user'] ?></td>
                           </tr>
                         <?php endforeach; ?>
                       </tbody>

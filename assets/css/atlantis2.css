@@ -5049,14 +5049,14 @@ label {
 
 .form-control:disabled,
 .form-control[readonly] {
-  background: #e8e8e8 !important;
-  border-color: #e8e8e8 !important;
+  background: #e8e8e8;
+  border-color: #e8e8e8;
 }
 
-.form-control:disabled,
+/*.form-control:disabled,
 .form-control[readonly] {
-  opacity: 0.6 !important;
-}
+  opacity: 0.6;
+}*/
 
 /*    Input Group    */
 .input-group-text {
@@ -21082,4 +21082,36 @@ body[data-background-color="dark"] .board {
   background: linear-gradient(-45deg, #E80A15, #F25961) !important;
 }
 
+/*Costime*/
+.data_foto {
+  height: 45px;
+  width: 45px;
+  overflow: hidden;
+  border-radius: 5px;
+  text-align: center;
+  position: relative;
+}
+.data_foto img {
+  height: 100%;
+  width: auto;
+  border-radius: 3px;
+  object-fit: cover;
+}
+.data_foto_item {
+  height: 45px;
+  width: 45px;
+  overflow: hidden;
+  border-radius: 5px;
+  text-align: center;
+  position: relative;
+}
+.data_foto_item img {
+  height: 100%;
+  width: auto;
+  border-radius: 3px;
+  object-fit: cover;
+}
 /*# sourceMappingURL=atlantis2.css.map */
+.btn:disabled {
+  cursor: no-drop !important;
+}

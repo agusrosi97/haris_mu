@@ -6790,7 +6790,7 @@ label {
 }
 
 .form-control:disabled {
-  background: #e8e8e8 !important;
+  background: white !important;
   border-color: #e8e8e8 !important;
 }
 

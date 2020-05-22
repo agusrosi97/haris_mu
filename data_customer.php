@@ -152,17 +152,17 @@ $row = $data_user->fetch_assoc();
               </a>
             </li>
             <li class="nav-item">
-              <a href="#tables">
+              <a href="data_barang.php">
                 <i class="fas fa-box"></i>
                 <p>Data Barang</p>
               </a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a href="#maps">
                 <i class="fas fa-tshirt"></i>
                 <p>Contoh Barang</p>
               </a>
-            </li>
+            </li> -->
           </ul>
         </div>
       </div>
